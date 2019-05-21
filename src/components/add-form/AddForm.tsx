@@ -16,13 +16,20 @@ class AddForm extends React.Component <IProps,IState> {
 
     public render() {
         return (
-            <div>
-                <input className="url-input" type="text" placeholder="Select URL your bookmarks"
-                       onChange={this.urlInputChange}/>
-                <input className="description-input" type="text" placeholder="Select description for your bookmarks"
-                       onChange={this.descriptionInputChange}/>
-                <button onClick = {this.handleClick}>+</button>
-                <button onClick = {this.handleClick2}>info</button>
+            <div className = "addBookmarks">
+                <div className="addUrl">
+                    <span>URL</span>
+                    <input className="url-input" type="text" placeholder="Select URL your bookmarks"
+                           onChange={this.urlInputChange}/>
+                </div>
+                <div className="addTitle">
+                    <span>Title</span>
+                    <input className="description-input" type="text" placeholder="Select description for your bookmarks"
+                           onChange={this.descriptionInputChange}/>
+                </div>
+                <div className="addTags">
+                </div>
+                <button className="addButton" onClick = {this.handleClick}>+</button>
             </div>
         )
     }
@@ -46,9 +53,6 @@ class AddForm extends React.Component <IProps,IState> {
         });
     };
 
-    private handleClick2 = () => {
-        console.log(this.state.url, this.state.description, this.props.bookmarks);
-    };
 }
 
 const mapStateToProps = (state: any) => ({

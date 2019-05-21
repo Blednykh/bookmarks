@@ -1,0 +1,28 @@
+.addBookmarks{
+    width: 70%;
+    background: #fffb2c;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+    margin-bottom: 30px;
+    position: relative;
+}
+.addUrl{
+    padding: 10px 10px ;
+}
+.addTitle{
+    padding: 10px 10px ;
+}
+.addBookmarks input{
+    width: 93%;
+    border-radius: 200px;
+    border: 0px;
+    height: 30px;
+    padding: 0px 10px;
+    margin-left: 10px;
+}
+
+.addButton{
+    position: absolute;
+    right: 0px;
+}

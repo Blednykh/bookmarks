@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import BookmarksItem from "../bookmarks-item/BookmarkItem";
-
+import './BookmarksList.css'
 interface IProps {
     bookmarks: []
 }
@@ -21,11 +21,28 @@ class BookmarksList extends React.Component <IProps,IState>{
         });
     }
 
+    private searchClick = () => {
+
+    };
+
+    private searchChange = () => {
+
+    };
+
 
     public render() {
         return (
-            <div>
-                bookmarks:
+            <div className = "bookmarksList">
+                <div className="search-box">
+                    <input
+                        type="text"
+                        placeholder="Search bookmarks..."
+                        onChange={this.searchChange}
+                    />
+                    <button className="searchButton" onClick={this.searchClick}>
+                        Search
+                    </button>
+                </div>
                 { this.setStockList() }
             </div>
         )

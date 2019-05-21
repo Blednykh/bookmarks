@@ -1,0 +1,62 @@
+.bookmarkInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    padding: 0px 10px;
+    transition: 0.3s;
+}
+
+.bookmarkInfo:hover{
+    background: #ff42c9;
+}
+
+.bookmarkInfo a{
+    text-decoration: none;
+}
+
+.bookmarkInfo button{
+    border-radius: 100px;
+    border-width: 0px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    height: 30px;
+    width: 55px;
+}
+.editButton{
+    background: #61dafb;
+    margin-left: -135px;
+    margin-right: 5px;
+}
+
+.deleteButton{
+    background: #ff312a;
+}
+.bookmarkInfo button:hover {
+    background: white;
+ /*   transform: scale(0.99);*/
+}
+.bookmarkTitle {
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    overflow-x:hidden;
+    height: 22px;
+    color: black;
+}
+.bookmarkDate {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: grey;
+}
+
+.infoBar{
+    width: 70%;
+
+
+}
+.buttonBar{
+
+}

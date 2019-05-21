@@ -5,6 +5,20 @@ export function addBookmark(data: any) {
     }
 }
 
+export const editBookmark = (data: any) => {
+    return {
+        type: 'EDIT2',
+        payload: data
+    }
+};
+
+export const editBookmarks = (data: any) => {
+    return {
+        type: 'EDIT',
+        payload: data
+    }
+};
+
 export const deleteBookmark = (data: number) => {
     return {
         type: 'DELETE',
