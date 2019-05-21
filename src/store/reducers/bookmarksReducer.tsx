@@ -1,7 +1,12 @@
-const bookmarksReducer = (state: any, action: any) => {
+import {array, object} from "prop-types";
+
+const bookmarksReducer = (state: any = {
+    bookmarks: []
+}, action: any) => {
     switch (action.type) {
         case 'ADD':
-            return state;
+            console.log("ADD",action.payload);
+            return {...state, bookmarks: [...state.bookmarks,{url: action.payload.url, description:action.payload.description}]};
         case 'DELETE':
             return state;
         default:

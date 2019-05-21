@@ -1,9 +1,9 @@
-export const addBookmark = (data: any) => {
+export function addBookmark(data: any) {
     return {
         type: 'ADD',
         payload: data
     }
-};
+}
 
 export const deleteBookmark = (data: number) => {
     return {
