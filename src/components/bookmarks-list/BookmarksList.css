@@ -1,5 +1,5 @@
 .bookmarksList {
-    width: 1000px;
+    width: 70%;
     text-align: left;
     overflow: hidden;
     position: relative;
@@ -7,23 +7,25 @@
     -khtml-user-select: none;
     user-select: none;
     box-sizing: content-box;
-    background: #fffb2c;
+    background: #e1e0e2;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 50px;
 }
 .search-box {
-    background: #1733ff;
-    height: 45px;
+    background: #545355;
+    height: 55px;
     width: 100%;
 }
 
 .search-box input {
-    height: 100%;
-    width: 85%;
+    height: 35px;
+    width: 60%;
     padding: 0px 10px;
     border: 0px;
-    background: #61dafb;
+    border-radius: 100px;
+    background: white;
+    margin: 10px 10px;
 }
 
 .searchButton {

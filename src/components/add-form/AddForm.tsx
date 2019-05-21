@@ -2,37 +2,74 @@ import * as React from 'react';
 import './AddForm.css';
 import {connect} from "react-redux";
 import {addBookmark} from "../../store/actions/bookmarksActions";
+import {addTag} from "../../store/actions/tagsActions"
+import {bookmark} from "../../model/bookmark";
+import BookmarksItem from "../bookmarks-item/BookmarkItem";
+
+
 
 interface IProps {
     addBookmark: any,
-    bookmarks: []
+    addTag: any,
+    tags: string[]
 }
 interface IState {
     url: string,
-    description: string
+    title: string,
+    tag: string,
 }
 
 class AddForm extends React.Component <IProps,IState> {
+
+    state={
+        tag: '',
+        url: '',
+        title: '',
+    };
+
+    public setTagList = () => {
+        return this.props.tags.map((item: string, index: number) => {
+            return (
+                <div className="tagItem">
+                    {item}
+                    <button className="deleteTagButton">x</button>
+                </div>
+            );
+        });
+    }
+
 
     public render() {
         return (
             <div className = "addBookmarks">
                 <div className="addUrl">
                     <span>URL</span>
-                    <input className="url-input" type="text" placeholder="Select URL your bookmarks"
+                    <input className="url-input" type="text" placeholder="Select URL your bookmarks" value={this.state.url}
                            onChange={this.urlInputChange}/>
                 </div>
                 <div className="addTitle">
                     <span>Title</span>
-                    <input className="description-input" type="text" placeholder="Select description for your bookmarks"
-                           onChange={this.descriptionInputChange}/>
+                    <input className="title-input" type="text" placeholder="Select title for your bookmarks" value={this.state.title}
+                           onChange={this.titleInputChange}/>
                 </div>
-                <div className="addTags">
+                <div className="tagsBar">
+                    <div className="addTags">
+                        <input className="tag-input" type="text" placeholder="Add tag..." onChange={this.tagInputChange} value={this.state.tag}/>
+                        <button className="addTagButton" onClick = {this.addTagClick}>+</button>
+                        <button className="addButton" onClick = {this.handleClick}>Add bookmark</button>
+                    </div>
+                    { this.setTagList() }
                 </div>
-                <button className="addButton" onClick = {this.handleClick}>+</button>
+
             </div>
         )
     }
+
+    private tagInputChange = (e: any) => {
+        this.setState({
+            tag: e.target.value,
+        });
+    };
 
     private urlInputChange = (e: any) => {
         this.setState({
@@ -40,29 +77,42 @@ class AddForm extends React.Component <IProps,IState> {
         });
     };
 
-    private descriptionInputChange = (e: any) => {
+    private titleInputChange = (e: any) => {
         this.setState({
-            description: e.target.value,
+            title: e.target.value,
+        });
+    };
+
+    private addTagClick = () => {
+        this.props.addTag(this.state.tag);
+        this.setState({
+            tag: ''
         });
     };
 
     private handleClick = () => {
         this.props.addBookmark({
             url: this.state.url,
-            description: this.state.description
+            title: this.state.title
+        });
+        this.setState({
+            url: '',
+            title: '',
+            tag: ''
         });
     };
 
 }
 
 const mapStateToProps = (state: any) => ({
-    bookmarks: state,
+    tags: state.tags
 });
 
 
 
 const mapActionsToProps = {
-    addBookmark: addBookmark
+    addBookmark: addBookmark,
+    addTag: addTag
 };
 export default connect(mapStateToProps,mapActionsToProps)(AddForm);
 

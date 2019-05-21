@@ -1,11 +1,9 @@
 .addBookmarks{
     width: 70%;
-    background: #fffb2c;
-    margin-right: auto;
-    margin-left: auto;
+    background: #bcbbbd;
     text-align: left;
-    margin-bottom: 30px;
     position: relative;
+    margin: 50px auto 30px;
 }
 .addUrl{
     padding: 10px 10px ;
@@ -24,5 +22,69 @@
 
 .addButton{
     position: absolute;
-    right: 0px;
+    right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background: white;
+    height: 30px;
+    width: 115px;
+    color: black;
+}
+.addButton:hover{
+    background: #9efba3;
+    color: black;
+}
+
+
+.addTags input{
+    width: 70%;
+    border-radius: 0px;
+    height: 20px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2px;
+
+}
+.addTags{
+    width: 80px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addTagButton{
+    border: 0px;
+    height: 20px;
+    width: 30%;
+}
+.addTagButton:hover{
+    background: #bcbbbd;
+}
+.tagsBar{
+    padding: 10px 10px ;
+    background: #545355;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.tagItem{
+    height: 20px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+.deleteTagButton{
+    border: 0;
+    background: none;
+    transition: 0.3s;
+}
+.deleteTagButton:hover{
+    color: #8e8b8f;
 }

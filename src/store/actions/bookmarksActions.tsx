@@ -1,4 +1,4 @@
-export function addBookmark(data: any) {
+export const addBookmark = (data: any) => {
     return {
         type: 'ADD',
         payload: data

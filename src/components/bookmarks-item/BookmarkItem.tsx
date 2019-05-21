@@ -45,9 +45,9 @@ class BookmarksItem extends React.Component <IProps,IState> {
         this.props.editBookmarks(newBookmarks);
     };
 
-    private descriptionChange = (e: any) => {
+    private titleChange = (e: any) => {
         let newBookmarks = this.props.bookmarks;
-        newBookmarks[this.props.index].description = e.target.value;
+        newBookmarks[this.props.index].title = e.target.value;
         this.props.editBookmarks(newBookmarks);
     };
 
@@ -57,7 +57,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
                 <div className="infoBar">
                     <a href={this.props.bookmarks[this.props.index].url}>
                         <div className="bookmarkTitle" title={this.props.bookmarks[this.props.index].url}>
-                            {this.props.bookmarks[this.props.index].description}
+                            {this.props.bookmarks[this.props.index].title}
                         </div>
                     </a>
                     <div className="bookmarkDate">
@@ -83,7 +83,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
 }
 
 const mapStateToProps = (state: any) => ({
-    bookmarks: state.bookmarks,
+    bookmarks: state.bookmarks.bookmarks,
 });
 
 const mapActionsToProps = {

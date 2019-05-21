@@ -1,5 +1,5 @@
 import {createStore} from 'redux';
-import reducers from "./reducers/bookmarksReducer";
+import reducers from "./reducers/allReducers";
 
 const store = createStore(
     reducers);

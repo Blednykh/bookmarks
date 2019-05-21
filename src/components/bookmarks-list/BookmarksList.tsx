@@ -11,6 +11,9 @@ interface IState {
 
 class BookmarksList extends React.Component <IProps,IState>{
 
+
+
+
     public setStockList = () => {
         return this.props.bookmarks.map((item: {}, index: number) => {
             return (
@@ -39,9 +42,9 @@ class BookmarksList extends React.Component <IProps,IState>{
                         placeholder="Search bookmarks..."
                         onChange={this.searchChange}
                     />
-                    <button className="searchButton" onClick={this.searchClick}>
+                    {/*<button className="searchButton" onClick={this.searchClick}>
                         Search
-                    </button>
+                    </button>*/}
                 </div>
                 { this.setStockList() }
             </div>
@@ -51,7 +54,7 @@ class BookmarksList extends React.Component <IProps,IState>{
 
 
 const mapStateToProps = (state: any) => ({
-    bookmarks: state.bookmarks,
+    bookmarks: state.bookmarks.bookmarks,
 });
 
 export default connect(mapStateToProps)(BookmarksList);

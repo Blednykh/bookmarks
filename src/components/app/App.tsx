@@ -8,7 +8,6 @@ class App extends React.Component {
   public render() {
     return (
         <div className="App">
-          BOOKMARKS
           <AddForm/>
           <BookmarksList/>
         </div>
