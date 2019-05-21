@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import AddForm from "../add-form/AddForm";
+import BookmarksList from "../bookmarks-list/BookmarksList";
 
 class App extends React.Component {
 
@@ -9,6 +10,7 @@ class App extends React.Component {
         <div className="App">
           BOOKMARKS
           <AddForm/>
+          <BookmarksList/>
         </div>
     );
   }
