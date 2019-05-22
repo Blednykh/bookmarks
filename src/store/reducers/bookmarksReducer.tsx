@@ -9,6 +9,7 @@ const bookmarksReducer = (state: any = {
                 bookmarks: [
                     ...state.bookmarks,
                     {
+                        id: action.payload.id,
                         url: action.payload.url,
                         title: action.payload.title,
                         tags: action.payload.tags,

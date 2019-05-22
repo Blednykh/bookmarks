@@ -5,7 +5,6 @@ export const addTag = (data: string[]) => {
     }
 }
 
-
 export const deleteTag = (data: number) => {
     return {
         type: 'DELETE_TAG',

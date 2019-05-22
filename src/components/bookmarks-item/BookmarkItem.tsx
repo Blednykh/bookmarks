@@ -1,8 +1,11 @@
 import * as React from 'react';
 import './BookmarksItem.css';
 import {connect} from "react-redux";
-import {deleteBookmark, editBookmark, editBookmarks} from "../../store/actions/bookmarksActions";
-import {CSSProperties} from "react";
+import {
+    deleteBookmark,
+    editBookmarks
+} from "../../store/actions/bookmarksActions";
+import {bookmark} from "../../model/bookmark";
 
 
 interface IProps {
@@ -10,22 +13,25 @@ interface IProps {
     index: number,
     bookmarks: any
     deleteBookmark: any,
-    editBookmark: any,
     editBookmarks: any,
-    tags: string[]
+    tags: string[],
+    currentBookmark: bookmark
 }
 interface IState {
     visibility: boolean,
-    tag: string
+    tag: string,
+    index: number
 }
 
 
 
 
 class BookmarksItem extends React.Component <IProps,IState> {
+
     state = {
         visibility: false,
-        tag: ''
+        tag: '',
+        index: 0
     };
 
 
@@ -36,29 +42,51 @@ class BookmarksItem extends React.Component <IProps,IState> {
     };
 
     private deleteBookmark = () => {
-        this.props.deleteBookmark({
-            index: this.props.index
+        this.props.bookmarks.forEach((item: bookmark,index: number)=>{
+            if(item.id===this.props.currentBookmark.id)
+            {
+                this.props.deleteBookmark({
+                    index: index
+                });
+            }
         });
     };
 
     private urlChange = (e: any) => {
+
         let newBookmarks = this.props.bookmarks;
-        newBookmarks[this.props.index].url = e.target.value;
+
+        newBookmarks.forEach((item:bookmark,index: number)=>{
+            if(item.id===this.props.currentBookmark.id)
+            {
+                newBookmarks[index].url = e.target.value;
+            }
+        });
         this.props.editBookmarks(newBookmarks);
     };
 
     private titleChange = (e: any) => {
+
         let newBookmarks = this.props.bookmarks;
-        newBookmarks[this.props.index].title = e.target.value;
+
+        newBookmarks.forEach((item:bookmark,index: number)=>{
+            if(item.id===this.props.currentBookmark.id)
+            {
+                newBookmarks[index].title = e.target.value;
+            }
+        });
         this.props.editBookmarks(newBookmarks);
     };
 
     public setTagList = () => {
-        return this.props.bookmarks[this.props.index].tags.map((item: string, index: number) => {
+        return this.props.currentBookmark.tags.map((item: string) => {
             return (
                 <div className="tagItem">
                     {item}
-                    <button className="deleteTagButton" onClick = {this.deleteTagClick(item)}>x</button>
+                    <button
+                        className="deleteTagButton"
+                        onClick = {this.deleteTagClick(item)}
+                    >x</button>
                 </div>
             );
         });
@@ -66,9 +94,16 @@ class BookmarksItem extends React.Component <IProps,IState> {
 
     private deleteTagClick = (index: string) => ()=> {
         let newBookmarks = this.props.bookmarks;
-        let currentTags: string[] = this.props.bookmarks[this.props.index].tags.filter((item:string)=>{return item!==index});
+        let currentTags: string[] = this.props.currentBookmark.tags.filter((item:string)=>{return item!==index});
 
-        newBookmarks[this.props.index].tags = currentTags;
+        newBookmarks.forEach((item:bookmark,index: number)=>{
+            if(item.id===this.props.currentBookmark.id)
+            {
+                newBookmarks[index].tags = currentTags;
+            }
+        });
+
+
         this.props.editBookmarks(newBookmarks);
     };
 
@@ -80,7 +115,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
 
     private addTagClick = () => {
         let newBookmarks = this.props.bookmarks;
-        let currentTags: string[] = this.props.bookmarks[this.props.index].tags;
+        let currentTags: string[] = this.props.currentBookmark.tags;
 
         if(!currentTags.some((item:string)=>{return item===this.state.tag})){
             currentTags.push(this.state.tag);
@@ -90,22 +125,31 @@ class BookmarksItem extends React.Component <IProps,IState> {
             tag: ''
         });
 
-        newBookmarks[this.props.index].tags = currentTags;
+        newBookmarks.forEach((item:bookmark,index: number)=>{
+            if(item.id===this.props.currentBookmark.id)
+            {
+                newBookmarks[index].tags = currentTags;
+            }
+        });
+
+
         this.props.editBookmarks(newBookmarks);
     };
 
+
     public render() {
+        const {currentBookmark} = this.props;
         return (
             <div className="bookmarkInfo">
                 <div className="bookmarkContent">
                     <div className="infoBar">
-                        <a href={this.props.bookmarks[this.props.index].url}>
-                            <div className="bookmarkTitle" title={this.props.bookmarks[this.props.index].url}>
-                                {this.props.bookmarks[this.props.index].title}
+                        <a href={currentBookmark.url}>
+                            <div className="bookmarkTitle" title={currentBookmark.url}>
+                                {currentBookmark.title}
                             </div>
                         </a>
                         <div className="bookmarkDate">
-                            {this.props.bookmarks[this.props.index].date.toString()}
+                            {currentBookmark.date.toString()}
                         </div>
                     </div>
                     <div className="buttonBar">
@@ -122,7 +166,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
                             value={this.state.tag}/>
                         <button className="addTagButton" onClick = {this.addTagClick}>+</button>
                     </div>
-                    { this.setTagList() }
+                    {this.setTagList() }
                 </div>
                 <div className="editBookmark" style={{visibility:  this.state.visibility?'visible':'hidden'}}>
                     <div className="editUrl">
@@ -131,7 +175,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
                             className="url-edit-input"
                             type="text"
                             placeholder="Select URL your bookmarks"
-                            value={this.props.bookmarks[this.props.index].url}
+                            value={currentBookmark.url}
                             onChange={this.urlChange}
                         />
                     </div>
@@ -141,7 +185,7 @@ class BookmarksItem extends React.Component <IProps,IState> {
                             className="title-edit-input"
                             type="text"
                             placeholder="Select title for your bookmarks"
-                            value={this.props.bookmarks[this.props.index].title}
+                            value={currentBookmark.title}
                             onChange={this.titleChange}
                         />
                     </div>
@@ -158,7 +202,6 @@ const mapStateToProps = (state: any) => ({
 
 const mapActionsToProps = {
     deleteBookmark: deleteBookmark,
-    editBookmark: editBookmark,
     editBookmarks: editBookmarks
 };
 

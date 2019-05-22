@@ -12,8 +12,6 @@ const tagsReducer = (state: string[] = [], action: any) => {
             newTags = state;
             newTags.splice(action.payload.index,1);
             return [...newTags];
-        case 'EDIT_TAG':
-            return {...state, tags: [...action.payload]};
         default:
             return state;
     }
