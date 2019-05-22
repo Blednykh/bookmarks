@@ -1,4 +1,4 @@
-export const addTag = (data: string) => {
+export const addTag = (data: string[]) => {
     return {
         type: 'ADD_TAG',
         payload: data

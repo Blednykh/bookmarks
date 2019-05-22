@@ -4,7 +4,17 @@ const bookmarksReducer = (state: any = {
     let newBookmarks;
     switch (action.type) {
         case 'ADD':
-            return {...state, bookmarks: [...state.bookmarks,{url: action.payload.url, title:action.payload.title}]};
+            return {
+                ...state,
+                bookmarks: [
+                    ...state.bookmarks,
+                    {
+                        url: action.payload.url,
+                        title: action.payload.title,
+                        tags: action.payload.tags,
+                        date: action.payload.date,
+                    }]
+            };
         case 'DELETE':
             newBookmarks = state.bookmarks;
             newBookmarks.splice(action.payload.index,1);

@@ -1,15 +1,32 @@
 .bookmarkInfo {
     width: 100%;
+    height: 80px;
+    transition: 0.3s;
+    position: relative;
+}
+
+.bookmarkInfo .tagsBar{
+    background: none;
+    padding: 5px 0px;
+    margin-top: 16px;
+    margin-left: 10px;
+}
+
+.bookmarkContent{
+    padding: 0px 10px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 45px;
-    padding: 0px 10px;
-    transition: 0.3s;
 }
 
+
 .bookmarkInfo:hover{
+    background: #bcbbbd;
+}
+
+.bookmarkInfo:hover .editBookmark{
     background: #bcbbbd;
 }
 
@@ -17,8 +34,8 @@
     text-decoration: none;
 }
 
-.bookmarkInfo button{
-    border-radius: 100px;
+.bookmarkContent button{
+    border-radius: 5px;
     border-width: 0px;
     padding: 5px 10px;
     cursor: pointer;
@@ -27,15 +44,15 @@
     width: 55px;
 }
 .editButton{
-    background: #61dafb;
+    background: #5fcff3;
     margin-left: -135px;
     margin-right: 5px;
 }
 
 .deleteButton{
-    background: #ff312a;
+    background: #f33129;
 }
-.bookmarkInfo button:hover {
+.bookmarkContent button:hover {
     background: white;
  /*   transform: scale(0.99);*/
 }
@@ -60,3 +77,35 @@
 .buttonBar{
 
 }
+.editBookmark{
+    position: absolute;
+    width: 70%;
+    top:0;
+    left: 0;
+    background: #e1e0e2;
+    transition: 0.3s;
+    padding: 5px 10px;
+}
+.editUrl{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.editTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.url-edit-input{
+    width: 92%;
+}
+.title-edit-input{
+    width: 92%;
+}
+.tag-input{
+
+    border: 0;
+}
+

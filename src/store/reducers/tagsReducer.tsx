@@ -1,8 +1,13 @@
 const tagsReducer = (state: string[] = [], action: any) => {
-    let newTags;
+    let newTags: string[];
     switch (action.type) {
         case 'ADD_TAG':
-            return [...state, action.payload];
+            newTags = state;
+            action.payload.forEach((item: string) =>{
+                if(!newTags.some((stateItem:string)=>{return stateItem === item}))
+                    newTags.push(item);
+            });
+            return [...newTags];
         case 'DELETE_TAG':
             newTags = state;
             newTags.splice(action.payload.index,1);

@@ -17,6 +17,7 @@ interface IState {
     url: string,
     title: string,
     tag: string,
+    currentTags: string[]
 }
 
 class AddForm extends React.Component <IProps,IState> {
@@ -25,14 +26,15 @@ class AddForm extends React.Component <IProps,IState> {
         tag: '',
         url: '',
         title: '',
+        currentTags: []
     };
 
     public setTagList = () => {
-        return this.props.tags.map((item: string, index: number) => {
+        return this.state.currentTags.map((item: string, index: number) => {
             return (
                 <div className="tagItem">
                     {item}
-                    <button className="deleteTagButton">x</button>
+                    <button className="deleteTagButton" onClick = {this.deleteTagClick(index)}>x</button>
                 </div>
             );
         });
@@ -56,9 +58,9 @@ class AddForm extends React.Component <IProps,IState> {
                     <div className="addTags">
                         <input className="tag-input" type="text" placeholder="Add tag..." onChange={this.tagInputChange} value={this.state.tag}/>
                         <button className="addTagButton" onClick = {this.addTagClick}>+</button>
-                        <button className="addButton" onClick = {this.handleClick}>Add bookmark</button>
                     </div>
                     { this.setTagList() }
+                    <button className="addButton" onClick = {this.handleClick}>Add bookmark</button>
                 </div>
 
             </div>
@@ -84,21 +86,40 @@ class AddForm extends React.Component <IProps,IState> {
     };
 
     private addTagClick = () => {
-        this.props.addTag(this.state.tag);
+        let currentTags: string[] = this.state.currentTags;
+        if(!currentTags.some((item:string)=>{return item===this.state.tag})){
+            currentTags.push(this.state.tag);
+        }
+
         this.setState({
+            currentTags,
             tag: ''
+        });
+    };
+
+    private deleteTagClick = (index: number) => ()=> {
+        let currentTags: string[] = this.state.currentTags;
+
+        currentTags.splice(index,1);
+
+        this.setState({
+            currentTags
         });
     };
 
     private handleClick = () => {
         this.props.addBookmark({
             url: this.state.url,
-            title: this.state.title
+            title: this.state.title,
+            tags: this.state.currentTags,
+            date: new Date()
         });
+        this.props.addTag(this.state.currentTags);
         this.setState({
             url: '',
             title: '',
-            tag: ''
+            tag: '',
+            currentTags: []
         });
     };
 
