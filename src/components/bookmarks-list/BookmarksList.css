@@ -3,8 +3,6 @@
     text-align: left;
     overflow: hidden;
     position: relative;
-    -moz-user-select: none;
-    -khtml-user-select: none;
     user-select: none;
     box-sizing: content-box;
     background: #e1e0e2;

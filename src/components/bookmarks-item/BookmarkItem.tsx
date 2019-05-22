@@ -16,7 +16,8 @@ interface IProps {
     deleteTag: any,
     addTag: any,
     tags: tag[],
-    currentBookmark: bookmark
+    currentBookmark: bookmark,
+    currentIndex: number
 }
 
 interface IState {
@@ -35,50 +36,41 @@ class BookmarksItem extends React.Component <IProps, IState> {
 
 
     private editBookmark = () => {
-       /* window.open(this.props.currentBookmark.url);*/
         this.setState({
             visibility: !this.state.visibility,
         });
     };
 
     private deleteBookmark = () => {
-        this.props.bookmarks.forEach((item: bookmark, index: number) => {
-            if (item.id === this.props.currentBookmark.id) {
-                this.props.deleteBookmark({
-                    index: index
-                });
-            }
+
+        const {currentBookmark, deleteBookmark, currentIndex} = this.props;
+
+        currentBookmark.tags.forEach((curTag: tag) => {
+            this.deleteTagClick(curTag)();
         });
+        deleteBookmark(currentIndex);
     };
 
     private urlChange = (e: any) => {
 
-        let newBookmarks = this.props.bookmarks;
+        const {bookmarks, editBookmarks, currentIndex} = this.props;
 
-        newBookmarks.forEach((item: bookmark, index: number) => {
-            if (item.id === this.props.currentBookmark.id) {
-                newBookmarks[index].url = e.target.value;
-            }
-        });
-        this.props.editBookmarks(newBookmarks);
+        bookmarks[currentIndex].url = e.target.value;
+        editBookmarks(bookmarks);
     };
 
     private titleChange = (e: any) => {
 
-        let newBookmarks = this.props.bookmarks;
+        const {bookmarks, editBookmarks, currentIndex} = this.props;
 
-        newBookmarks.forEach((item: bookmark, index: number) => {
-            if (item.id === this.props.currentBookmark.id) {
-                newBookmarks[index].title = e.target.value;
-            }
-        });
-        this.props.editBookmarks(newBookmarks);
+        bookmarks[currentIndex].title = e.target.value;
+        editBookmarks(bookmarks);
     };
 
     private setTagList = () => {
         return this.props.currentBookmark.tags.map((item: tag) => {
             return (
-                <div className="tagItem"  style={{borderColor: item.color}}>
+                <div className="tagItem" style={{borderColor: item.color}} key={item.color}>
                     {item.title}
                     <button
                         className="deleteTagButton"
@@ -91,32 +83,25 @@ class BookmarksItem extends React.Component <IProps, IState> {
     };
 
     private deleteTagClick = (deletedTag: tag) => () => {
-        console.log(deletedTag);
-        let newBookmarks = this.props.bookmarks;
-        let currentTags: tag[] = this.props.currentBookmark.tags.filter((item: tag) => {
+
+        const {bookmarks, currentBookmark, editBookmarks, deleteTag, currentIndex} = this.props;
+
+        let currentTags: tag[] = currentBookmark.tags.filter((item: tag) => {
             return item.title !== deletedTag.title
         });
 
-        newBookmarks.forEach((item: bookmark, index: number) => {
-            if (item.id === this.props.currentBookmark.id) {
-                newBookmarks[index].tags = currentTags;
-            }
-        });
+        bookmarks[currentIndex].tags = currentTags;
 
         let tagIndex: number = 0;
 
         if (this.props.tags.some((item: tag, index: number) => {
-            console.log(item,tagIndex);
             tagIndex = index;
             return item.title === deletedTag.title
         })) {
-            console.log(tagIndex);
-           this.props.deleteTag(tagIndex);
+            deleteTag(tagIndex);
         }
 
-
-
-        this.props.editBookmarks(newBookmarks);
+        editBookmarks(bookmarks);
     };
 
     private tagInputChange = (e: any) => {
@@ -125,26 +110,32 @@ class BookmarksItem extends React.Component <IProps, IState> {
         });
     };
 
-    private setTagColor = (title: string) =>{
+    private setTagColor = () =>{
+
         const r: number = Math.floor(Math.random() * (256));
         const g: number = Math.floor(Math.random() * (256));
         const b: number = Math.floor(Math.random() * (256));
+
         return '#' + r.toString(16) + g.toString(16) + b.toString(16);
     };
 
     private addTagClick = () => {
-        let newBookmarks = this.props.bookmarks;
+
+        const {bookmarks, editBookmarks, addTag, currentIndex} = this.props;
+
+        const {tag} = this.state;
+
         let currentTags: tag[] = this.props.currentBookmark.tags;
 
         if (!currentTags.some((item: tag) => {
-            return item.title === this.state.tag
+            return item.title === tag
         })) {
             const newTag: tag = {
-                title: this.state.tag,
-                color: this.setTagColor(this.state.tag),
+                title: tag,
+                color: this.setTagColor(),
                 count: 1
             };
-            this.props.addTag([newTag]);
+            addTag([newTag]);
             currentTags.push(newTag);
         }
 
@@ -152,13 +143,12 @@ class BookmarksItem extends React.Component <IProps, IState> {
             tag: ''
         });
 
-        newBookmarks.forEach((item: bookmark, index: number) => {
-            if (item.id === this.props.currentBookmark.id) {
-                newBookmarks[index].tags = currentTags;
-            }
-        });
+        bookmarks[currentIndex].tags = currentTags;
+        editBookmarks(bookmarks);
+    };
 
-        this.props.editBookmarks(newBookmarks);
+    private goTo = () => {
+        window.open(this.props.currentBookmark.url);
     };
 
 
@@ -168,11 +158,11 @@ class BookmarksItem extends React.Component <IProps, IState> {
             <div className="bookmarkInfo">
                 <div className="bookmarkContent">
                     <div className="infoBar">
-                        <a href={currentBookmark.url}>
+                        <div onClick={this.goTo}>
                             <div className="bookmarkTitle" title={currentBookmark.url}>
                                 {currentBookmark.title}
                             </div>
-                        </a>
+                        </div>
                         <div className="bookmarkDate">
                             {currentBookmark.date.toString()}
                         </div>

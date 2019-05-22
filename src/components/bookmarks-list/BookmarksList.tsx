@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import BookmarksItem from "../bookmarks-item/BookmarkItem";
 import './BookmarksList.css'
+import BookmarksItem from "../bookmarks-item/BookmarkItem";
 import {bookmark} from "../../model/bookmark";
 import {tag} from "../../model/tag"
 
@@ -12,7 +12,7 @@ interface IState {
     searchText: string
 }
 
-class BookmarksList extends React.Component <IProps,IState>{
+class BookmarksList extends React.Component <IProps, IState> {
 
     state = {
         searchText: ''
@@ -37,9 +37,19 @@ class BookmarksList extends React.Component <IProps,IState>{
                 return true
             }
         }).map((item: bookmark) => {
+
+            let currentIndex: number = 0;
+
+            this.props.bookmarks.forEach((bookmarksItem: bookmark, index: number) => {
+                if (bookmarksItem.id === item.id) {
+                    currentIndex = index;
+                }
+            });
             return (
                 <BookmarksItem
+                    key={item.id}
                     currentBookmark={item}
+                    currentIndex={currentIndex}
                 />
             );
         });

@@ -33,9 +33,13 @@ class AddForm extends React.Component <IProps, IState> {
     };
 
     componentWillMount = () => {
+
         let bookmarks = localStorage.getItem('bookmarks');
+
         let tags = localStorage.getItem('tags');
+
         let id = localStorage.getItem('id');
+
         if (bookmarks !== null && tags !== null && id !== null) {
             this.props.editBookmarks(JSON.parse(bookmarks));
             this.props.addTag(JSON.parse(tags));
@@ -53,7 +57,7 @@ class AddForm extends React.Component <IProps, IState> {
     private setTagList = () => {
         return this.state.currentTags.map((item: tag, index: number) => {
             return (
-                <div className="tagItem" style={{borderColor: item.color}}>
+                <div className="tagItem" style={{borderColor: item.color}} key={index}>
                     {item.title}
                     <button className="deleteTagButton" onClick={this.deleteTagClick(index)}>x</button>
                 </div>
@@ -80,6 +84,7 @@ class AddForm extends React.Component <IProps, IState> {
     };
 
     private setTagColor = (title: string) =>{
+
         let tagIndex: number = 0;
 
         if (!this.props.tags.some((item: tag, index: number) => {
@@ -99,7 +104,9 @@ class AddForm extends React.Component <IProps, IState> {
 
 
     private addTagClick = () => {
+
         let currentTags: tag[] = this.state.currentTags;
+
         if (!currentTags.some((item: tag) => {
             return item.title === this.state.tag
         })) {
@@ -118,21 +125,24 @@ class AddForm extends React.Component <IProps, IState> {
     };
 
     private deleteTagClick = (index: number) => () => {
+
         let currentTags: tag[] = this.state.currentTags;
 
         currentTags.splice(index, 1);
-
         this.setState({
             currentTags
         });
     };
 
     private handleClick = () => {
+
+        const {id,url,title,currentTags} = this.state;
+
         this.props.addBookmark({
-            id: this.state.id,
-            url: this.state.url,
-            title: this.state.title,
-            tags: this.state.currentTags,
+            id,
+            url,
+            title,
+            tags: currentTags,
             date: new Date()
         });
         this.props.addTag(this.state.currentTags);
@@ -141,12 +151,14 @@ class AddForm extends React.Component <IProps, IState> {
             title: '',
             tag: '',
             currentTags: [],
-            id: this.state.id + 1
+            id: id + 1
         });
     };
 
     public render() {
-        console.log(this.props.tags,this.props.bookmarks, this.state.id);
+
+        const {url,title,tag} = this.state;
+
         return (
             <div className="addBookmarks">
                 <div className="addUrl">
@@ -155,7 +167,7 @@ class AddForm extends React.Component <IProps, IState> {
                         className="url-input"
                         type="text"
                         placeholder="Select URL your bookmarks"
-                        value={this.state.url}
+                        value={url}
                         onChange={this.urlInputChange}/>
                 </div>
                 <div className="addTitle">
@@ -164,7 +176,7 @@ class AddForm extends React.Component <IProps, IState> {
                         className="title-input"
                         type="text"
                         placeholder="Select title for your bookmarks"
-                        value={this.state.title}
+                        value={title}
                         onChange={this.titleInputChange}/>
                 </div>
                 <div className="tagsBar">
@@ -174,7 +186,7 @@ class AddForm extends React.Component <IProps, IState> {
                             type="text"
                             placeholder="Add tag..."
                             onChange={this.tagInputChange}
-                            value={this.state.tag}/>
+                            value={tag}/>
                         <button className="addTagButton" onClick={this.addTagClick}>+</button>
                     </div>
                     {this.setTagList()}

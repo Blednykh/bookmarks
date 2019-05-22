@@ -5,12 +5,7 @@
     position: relative;
     margin: 50px auto 30px;
 }
-.addUrl{
-    padding: 10px 10px ;
-}
-.addTitle{
-    padding: 10px 10px ;
-}
+
 .addBookmarks input{
     width: 93%;
     border-radius: 200px;
@@ -30,28 +25,14 @@
     width: 115px;
     color: black;
 }
+
 .addButton:hover{
     background: #9efba3;
     color: black;
 }
 
-
-.addTags input{
-    width: 70%;
-    border-radius: 0px;
-    height: 20px;
-    font-size: 11px;
-    padding: 0px 5px;
-    margin-left: 2px;
-
-}
-.addTags{
-    width: 80px;
-    background: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.addTitle{
+    padding: 10px 10px ;
 }
 
 .addTagButton{
@@ -62,6 +43,39 @@
 .addTagButton:hover{
     background: #bcbbbd;
 }
+
+.addTags{
+    width: 80px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addTags input{
+    width: 70%;
+    border-radius: 0px;
+    height: 20px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2px;
+
+}
+
+.addUrl{
+    padding: 10px 10px ;
+}
+
+.deleteTagButton{
+    border: 0;
+    background: none;
+    transition: 0.3s;
+}
+.deleteTagButton:hover{
+    color: #8e8b8f;
+}
+
 .tagsBar{
     padding: 10px 10px ;
     background: #545355;
@@ -81,15 +95,5 @@
     padding-left: 10px;
     border: 1px solid;
 }
-.tagItem:hover{
-    border: 2px solid;
-}
 
-.deleteTagButton{
-    border: 0;
-    background: none;
-    transition: 0.3s;
-}
-.deleteTagButton:hover{
-    color: #8e8b8f;
-}
+
