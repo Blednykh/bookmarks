@@ -4,25 +4,25 @@ import {connect} from "react-redux";
 import {addBookmark, editBookmarks} from "../../store/actions/bookmarksActions";
 import {addTag} from "../../store/actions/tagsActions"
 import {bookmark} from "../../model/bookmark";
-import {array} from "prop-types";
-
+import {tag} from "../../model/tag"
 
 interface IProps {
     editBookmarks: any,
     addBookmark: any,
     addTag: any,
-    tags: string[],
+    tags: tag[],
     bookmarks: bookmark[]
 }
+
 interface IState {
     url: string,
     title: string,
     tag: string,
-    currentTags: string[],
+    currentTags: tag[],
     id: number
 }
 
-class AddForm extends React.Component <IProps,IState> {
+class AddForm extends React.Component <IProps, IState> {
 
     state = {
         tag: '',
@@ -30,51 +30,36 @@ class AddForm extends React.Component <IProps,IState> {
         title: '',
         currentTags: [],
         id: 0
-    }
-
-
-
-
-    /*componentWillMount = () => {
-        const bookmarks = localStorage.getItem('bookmarks');
-        const tags = localStorage.getItem('tags');
-
-        this.props.editBookmarks({bookmarks});
-        this.props.addTag({tags});
-
-    };*/
+    };
 
     componentWillMount = () => {
         let bookmarks = localStorage.getItem('bookmarks');
         let tags = localStorage.getItem('tags');
-        if(bookmarks!==null && tags!==null)
-        {
-            bookmarks = JSON.parse(bookmarks);
-            tags = JSON.parse(tags);
-            this.props.editBookmarks(bookmarks);
-            this.props.addTag(tags);
+        let id = localStorage.getItem('id');
+        if (bookmarks !== null && tags !== null && id !== null) {
+            this.props.editBookmarks(JSON.parse(bookmarks));
+            this.props.addTag(JSON.parse(tags));
+            this.setState({id: JSON.parse(id)})
         }
 
     };
 
-
-    componentDidUpdate = () =>{
+    componentDidUpdate = () => {
         localStorage.setItem('bookmarks', JSON.stringify(this.props.bookmarks));
         localStorage.setItem('tags', JSON.stringify(this.props.tags));
+        localStorage.setItem('id', JSON.stringify(this.state.id));
     };
 
-
-
-    public setTagList = () => {
-        return this.state.currentTags.map((item: string, index: number) => {
+    private setTagList = () => {
+        return this.state.currentTags.map((item: tag, index: number) => {
             return (
-                <div className="tagItem">
-                    {item}
-                    <button className="deleteTagButton" onClick = {this.deleteTagClick(index)}>x</button>
+                <div className="tagItem" style={{borderColor: item.color}}>
+                    {item.title}
+                    <button className="deleteTagButton" onClick={this.deleteTagClick(index)}>x</button>
                 </div>
             );
         });
-    }
+    };
 
     private tagInputChange = (e: any) => {
         this.setState({
@@ -94,10 +79,36 @@ class AddForm extends React.Component <IProps,IState> {
         });
     };
 
+    private setTagColor = (title: string) =>{
+        let tagIndex: number = 0;
+
+        if (!this.props.tags.some((item: tag, index: number) => {
+            tagIndex = index;
+            return item.title === title
+        })) {
+            const r: number = Math.floor(Math.random() * (256));
+            const g: number = Math.floor(Math.random() * (256));
+            const b: number = Math.floor(Math.random() * (256));
+            return '#' + r.toString(16) + g.toString(16) + b.toString(16);
+        }
+        else{
+            return this.props.tags[tagIndex].color;
+        }
+
+    };
+
+
     private addTagClick = () => {
-        let currentTags: string[] = this.state.currentTags;
-        if(!currentTags.some((item:string)=>{return item===this.state.tag})){
-            currentTags.push(this.state.tag);
+        let currentTags: tag[] = this.state.currentTags;
+        if (!currentTags.some((item: tag) => {
+            return item.title === this.state.tag
+        })) {
+            const newTag: tag = {
+                title: this.state.tag,
+                color: this.setTagColor(this.state.tag),
+                count: 1
+            };
+            currentTags.push(newTag);
         }
 
         this.setState({
@@ -106,10 +117,10 @@ class AddForm extends React.Component <IProps,IState> {
         });
     };
 
-    private deleteTagClick = (index: number) => ()=> {
-        let currentTags: string[] = this.state.currentTags;
+    private deleteTagClick = (index: number) => () => {
+        let currentTags: tag[] = this.state.currentTags;
 
-        currentTags.splice(index,1);
+        currentTags.splice(index, 1);
 
         this.setState({
             currentTags
@@ -135,8 +146,9 @@ class AddForm extends React.Component <IProps,IState> {
     };
 
     public render() {
+        console.log(this.props.tags,this.props.bookmarks, this.state.id);
         return (
-            <div className = "addBookmarks">
+            <div className="addBookmarks">
                 <div className="addUrl">
                     <span>URL</span>
                     <input
@@ -163,10 +175,10 @@ class AddForm extends React.Component <IProps,IState> {
                             placeholder="Add tag..."
                             onChange={this.tagInputChange}
                             value={this.state.tag}/>
-                        <button className="addTagButton" onClick = {this.addTagClick}>+</button>
+                        <button className="addTagButton" onClick={this.addTagClick}>+</button>
                     </div>
-                    { this.setTagList() }
-                    <button className="addButton" onClick = {this.handleClick}>Add bookmark</button>
+                    {this.setTagList()}
+                    <button className="addButton" onClick={this.handleClick}>Add bookmark</button>
                 </div>
 
             </div>
@@ -182,13 +194,11 @@ const mapStateToProps = (state: any) => ({
     bookmarks: state.bookmarks.bookmarks
 });
 
-
-
 const mapActionsToProps = {
     addBookmark: addBookmark,
     editBookmarks: editBookmarks,
     addTag: addTag
 };
-export default connect(mapStateToProps,mapActionsToProps)(AddForm);
+export default connect(mapStateToProps, mapActionsToProps)(AddForm);
 
 

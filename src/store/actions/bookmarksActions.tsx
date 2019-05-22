@@ -7,8 +7,7 @@ export const addBookmark = (data: bookmark) => {
     }
 };
 
-
-export const editBookmarks = (data: any) => {
+export const editBookmarks = (data: bookmark[]) => {
     return {
         type: 'EDIT',
         payload: data

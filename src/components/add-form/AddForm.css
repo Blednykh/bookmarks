@@ -79,7 +79,12 @@
     margin-left: 20px;
     border-radius: 10px;
     padding-left: 10px;
+    border: 1px solid;
 }
+.tagItem:hover{
+    border: 2px solid;
+}
+
 .deleteTagButton{
     border: 0;
     background: none;

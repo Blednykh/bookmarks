@@ -1,19 +1,20 @@
 .bookmarkInfo {
     width: 100%;
-    height: 80px;
+    height: 90px;
     transition: 0.3s;
     position: relative;
 }
 
-.bookmarkInfo .tagsBar{
+.bookmarkInfo .tagsBar {
     background: none;
-    padding: 5px 0px;
+    padding: 5px 0;
     margin-top: 16px;
     margin-left: 10px;
 }
 
-.bookmarkContent{
-    padding: 0px 10px;
+
+.bookmarkContent {
+    padding: 0 10px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -21,91 +22,96 @@
     align-items: center;
 }
 
-
-.bookmarkInfo:hover{
+.bookmarkInfo:hover {
     background: #bcbbbd;
 }
 
-.bookmarkInfo:hover .editBookmark{
+.bookmarkInfo:hover .editBookmark {
     background: #bcbbbd;
 }
 
-.bookmarkInfo a{
+.bookmarkInfo a {
     text-decoration: none;
 }
 
-.bookmarkContent button{
+.bookmarkContent button {
     border-radius: 5px;
-    border-width: 0px;
+    border: 0;
     padding: 5px 10px;
     cursor: pointer;
     transition: 0.3s;
     height: 30px;
     width: 55px;
 }
-.editButton{
+
+.editButton {
     background: #5fcff3;
     margin-left: -135px;
     margin-right: 5px;
 }
 
-.deleteButton{
+.deleteButton {
     background: #f33129;
 }
+
 .bookmarkContent button:hover {
     background: white;
- /*   transform: scale(0.99);*/
 }
+
 .bookmarkTitle {
     font-size: 15px;
     letter-spacing: 0.5px;
-    overflow-x:hidden;
+    overflow-x: hidden;
     height: 22px;
     color: black;
 }
+
 .bookmarkDate {
     font-size: 10px;
     letter-spacing: 0.5px;
     color: grey;
 }
 
-.infoBar{
+.infoBar {
     width: 70%;
-
-
 }
-.buttonBar{
 
-}
-.editBookmark{
+.editBookmark {
     position: absolute;
     width: 70%;
-    top:0;
+    top: 0;
     left: 0;
     background: #e1e0e2;
     transition: 0.3s;
     padding: 5px 10px;
 }
-.editUrl{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.editTitle{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.url-edit-input{
-    width: 92%;
-}
-.title-edit-input{
-    width: 92%;
-}
-.tag-input{
 
+.editUrl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.url-edit-input {
+    width: 92%;
+}
+
+.title-edit-input {
+    width: 92%;
+}
+
+.tag-input {
     border: 0;
 }
 
+.buttonBar{
+    margin-top: 10px;
+}

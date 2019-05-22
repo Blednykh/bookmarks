@@ -18,13 +18,13 @@ const bookmarksReducer = (state: any = {
             };
         case 'DELETE':
             newBookmarks = state.bookmarks;
-            newBookmarks.splice(action.payload.index,1);
+            newBookmarks.splice(action.payload.index, 1);
             return {...state, bookmarks: [...newBookmarks]};
         case 'EDIT':
             return {...state, bookmarks: [...action.payload]};
         default:
             return state;
     }
-}
+};
 
 export default bookmarksReducer;
