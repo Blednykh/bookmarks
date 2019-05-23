@@ -1,0 +1,45 @@
+.bookmarksList {
+    width: 70%;
+    text-align: left;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    box-sizing: content-box;
+    background: #e1e0e2;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 50px;
+}
+.search-box {
+    background: #545355;
+    height: 55px;
+    width: 100%;
+}
+
+.search-box input {
+    height: 35px;
+    width: 60%;
+    padding: 0px 10px;
+    border: 0px;
+    border-radius: 100px;
+    background: white;
+    margin: 10px 10px;
+}
+
+.searchButton {
+    height: 35px;
+    width: 115px;
+    border-radius: 200px;
+    border: 0px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    margin-left: 3px;
+    color: #545355;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background: #f1f1f1;
+}

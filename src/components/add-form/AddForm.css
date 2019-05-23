@@ -1,0 +1,99 @@
+.addBookmarks{
+    width: 70%;
+    background: #bcbbbd;
+    text-align: left;
+    position: relative;
+    margin: 50px auto 30px;
+}
+
+.addBookmarks input{
+    width: 93%;
+    border-radius: 200px;
+    border: 0px;
+    height: 30px;
+    padding: 0px 10px;
+    margin-left: 10px;
+}
+
+.addButton{
+    position: absolute;
+    right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background: white;
+    height: 30px;
+    width: 115px;
+    color: black;
+}
+
+.addButton:hover{
+    background: #9efba3;
+    color: black;
+}
+
+.addTitle{
+    padding: 10px 10px ;
+}
+
+.addTagButton{
+    border: 0px;
+    height: 20px;
+    width: 30%;
+}
+.addTagButton:hover{
+    background: #bcbbbd;
+}
+
+.addTags{
+    width: 80px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addTags input{
+    width: 70%;
+    border-radius: 0px;
+    height: 20px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2px;
+
+}
+
+.addUrl{
+    padding: 10px 10px ;
+}
+
+.deleteTagButton{
+    border: 0;
+    background: none;
+    transition: 0.3s;
+}
+.deleteTagButton:hover{
+    color: #8e8b8f;
+}
+
+.tagsBar{
+    padding: 10px 10px ;
+    background: #545355;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.tagItem{
+    height: 20px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: 1px solid;
+}
+
+
